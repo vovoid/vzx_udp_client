@@ -1,0 +1,26 @@
+C++ class on the receiving end:
+
+
+class request_type
+{
+public:
+
+enum operations
+{
+  set_value_direct = 1
+};
+
+enum data_types
+{
+  float_type = 1,
+  float3_type = 2,
+  float4_type = 3
+};
+
+uint32_t channel = 0;
+uint32_t operation = operations::set_value_direct;
+uint32_t data_type = data_types::float_type;
+
+std::array<float, 4> values = {0, 0, 0, 0};
+};
+

@@ -1,0 +1,1 @@
+set PHP_EXECUTABLE=C:\php\php.exe
