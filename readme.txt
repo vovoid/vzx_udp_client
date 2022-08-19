@@ -1,4 +1,4 @@
-API for sending values to Artiste's UDP server module
+API for sending values to Artiste's UDP server module for VZX Creative 0.9.4.1 (Release TBA)
 
 This is written in PHP and should be pretty straight forward to understand.
 
