@@ -47,7 +47,7 @@ function send_float3(int $channel, float $value_x, float $value_y, float $value_
 
     // Next up is the actual value.
     // VZX expects 4 float values.
-    // But in this case only the first will be used.
+    // But in this case only the first 3 will be used.
     // add a 32-bit float value
     $buffer .= pack('f', $value_x); // value
     $buffer .= pack('f', $value_y); // this value will be ignored but must be in the packet
@@ -70,8 +70,6 @@ function send_float4(int $channel, float $value_x, float $value_y, float $value_
 
     // Next up is the actual value.
     // VZX expects 4 float values.
-    // But in this case only the first will be used.
-    // add a 32-bit float value
     $buffer .= pack('f', $value_x); // value
     $buffer .= pack('f', $value_y); // this value will be ignored but must be in the packet
     $buffer .= pack('f', $value_z); // this value will be ignored but must be in the packet
