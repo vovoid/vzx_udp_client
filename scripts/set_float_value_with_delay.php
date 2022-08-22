@@ -10,11 +10,11 @@ $port = 34341; // should be the same as on the module
 // 0.0 to larger than 0.0
 
 // set channel 1 float value to 1.0
-send_float(vzx_udp_channels\channel_1, 1.0, $remote_ip, $port);
+send_float(vzx_udp_channels\channel_1, vzx_udp_operations\set_value_direct, 1.0, $remote_ip, $port);
 
 // delay 1 second
 echo "Delaying for one second...\n";
 sleep(1);
 
 // set channel 1 float value to 0.0
-send_float(vzx_udp_channels\channel_1, 0.0, $remote_ip, $port);
+send_float(vzx_udp_channels\channel_1, vzx_udp_operations\set_value_direct, 0.0, $remote_ip, $port);

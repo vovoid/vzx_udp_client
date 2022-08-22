@@ -11,13 +11,13 @@ function send_udp_packet($buffer, $ip, $port)
     socket_close($sock);
 }
 
-function send_float(int $channel, float $value, string $ip, int $port)
+function send_float(int $channel, int $operation, float $value, string $ip, int $port)
 {
     // Set channel, corresponds to the channel id in the module outputs
     $buffer = pack('L', $channel);
 
-    // next is what operation to request, setting a value direct is the easiest
-    $buffer .= pack('L', vzx_udp_operations\set_value_direct);
+    // next is what operation to request
+    $buffer .= pack('L', $operation);
 
     // what data type
     $buffer .= pack('L', vzx_udp_data_types\float_type);
@@ -34,13 +34,13 @@ function send_float(int $channel, float $value, string $ip, int $port)
     send_udp_packet($buffer, $ip, $port);
 }
 
-function send_float3(int $channel, float $value_x, float $value_y, float $value_z, string $ip, int $port)
+function send_float3(int $channel, int $operation, float $value_x, float $value_y, float $value_z, string $ip, int $port)
 {
     // Set channel, corresponds to the channel id in the module outputs
     $buffer = pack('L', $channel);
 
-    // next is what operation to request, setting a value direct is the easiest
-    $buffer .= pack('L', vzx_udp_operations\set_value_direct);
+    // next is what operation to request
+    $buffer .= pack('L', $operation);
 
     // what data type
     $buffer .= pack('L', vzx_udp_data_types\float3_type);
@@ -57,13 +57,13 @@ function send_float3(int $channel, float $value_x, float $value_y, float $value_
     send_udp_packet($buffer, $ip, $port);
 }
 
-function send_float4(int $channel, float $value_x, float $value_y, float $value_z, float $value_w, string $ip, int $port)
+function send_float4(int $channel, int $operation, float $value_x, float $value_y, float $value_z, float $value_w, string $ip, int $port)
 {
     // Set channel, corresponds to the channel id in the module outputs
     $buffer = pack('L', $channel);
 
-    // next is what operation to request, setting a value direct is the easiest
-    $buffer .= pack('L', vzx_udp_operations\set_value_direct);
+    // next is what operation to request
+    $buffer .= pack('L', $operation);
 
     // what data type
     $buffer .= pack('L', vzx_udp_data_types\float4_type);
