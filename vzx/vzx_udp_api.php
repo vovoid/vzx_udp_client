@@ -3,13 +3,7 @@
 include(dirname(__FILE__) . '/vzx_udp_channels.php');
 include(dirname(__FILE__) . '/vzx_udp_data_types.php');
 include(dirname(__FILE__) . '/vzx_udp_operations.php');
-
-function send_udp_packet($buffer, $ip, $port)
-{
-    $sock = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
-    socket_sendto($sock, $buffer, strlen($buffer), 0, strval($ip), intval($port));
-    socket_close($sock);
-}
+include(dirname(__FILE__) . '/network_functions.php');
 
 function send_float(int $channel, int $operation, float $value, string $ip, int $port)
 {
