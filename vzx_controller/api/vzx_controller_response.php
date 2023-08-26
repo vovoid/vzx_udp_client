@@ -16,7 +16,7 @@ class response
     public result_t $result = result_t::unknown_command;
 
     // 8..15 this is an uint64_t (little endian)
-    public int $result_integer = 0;
+    public int $integer_1 = 0;
 
     // total size (no proper sizeof in php, have to count manually)
     const size_bytes = 16;
@@ -58,7 +58,7 @@ class response
                 return;
             }
 
-            $this->result_integer = $unpack_result[1];
+            $this->integer_1 = $unpack_result[1];
         }
     }
 }

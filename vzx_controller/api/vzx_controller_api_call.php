@@ -4,48 +4,48 @@ include(dirname(__FILE__) . '/../vzx_controller_api_configuration.php');
 include(dirname(__FILE__) . '/vzx_controller_request.php');
 include(dirname(__FILE__) . '/vzx_controller_response.php');
 
-global $debug_output;
-$debug_output = FALSE;
+global $enable_debug_output;
+$enable_debug_output = FALSE;
 
-function vzx_controller_api_call(request $request)
+function vzx_controller_api_call(request $request): ?response
 {
     global $remote_ip;
     global $port;
-    global $debug_output;
+    global $enable_debug_output;
 
     // connect socket to server
     $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-    if ($debug_output)
+    if ($enable_debug_output)
         echo "Connecting to server...";
     if (!socket_connect($socket, $remote_ip, $port)) {
         echo "Could not connect to server: " . $remote_ip . ":" . $port . "\n";
         return null;
     }
-    if ($debug_output)
+    if ($enable_debug_output)
         echo "OK\n";
 
     // send the request
-    if ($debug_output)
+    if ($enable_debug_output)
         echo "Serializing binary message...";
     $buffer = $request->serialize_binary();
-    if ($debug_output)
+    if ($enable_debug_output)
         echo "OK\n";
 
-    if ($debug_output)
+    if ($enable_debug_output)
         echo "Sending buffer on socket...";
 
     $data_sent = socket_send($socket, $buffer, strlen($buffer), 0);
     if ($data_sent === false) {
         echo "No data sent on socket.";
     }
-    if ($debug_output)
+    if ($enable_debug_output)
         echo "OK, " . $data_sent . " bytes was sent\n";
 
     // receive response
-    if ($debug_output)
+    if ($enable_debug_output)
         echo "Receiving reply from server...";
     $recv_status = socket_recv($socket, $reply_data, response::size_bytes, 0);
-    if ($debug_output)
+    if ($enable_debug_output)
         echo "OK\n";
     if ($recv_status === FALSE) {
         echo "recv call failed\n\n";
@@ -53,11 +53,11 @@ function vzx_controller_api_call(request $request)
     }
 
     // close socket
-    if ($debug_output)
+    if ($enable_debug_output)
         echo "Closing socket...";
     socket_close($socket);
 
-    if ($debug_output)
+    if ($enable_debug_output)
         echo "OK\n";
 
     // return response
