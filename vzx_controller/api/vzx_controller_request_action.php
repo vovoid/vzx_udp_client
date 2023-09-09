@@ -4,6 +4,34 @@ enum action_t: int
 {
     case unknown_command = 0;
 
+    //---------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------------
+    //--- P L A Y   Q U E U E   M A N I P U L A T I O N -------------------------------------------
+    //---------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------------
+
+    /**
+     * Start the automatic progression between visuals
+     *
+     * Data fields returned on success:
+     *   N/A
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case play_queue_progression_play = 1;
+
+    /**
+     * Stop the automatic progression between visuals
+     *
+     * Data fields returned on success:
+     *   N/A
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case play_queue_progression_stop = 2;
+
     /**
      * Play the previous visual in the play queue
      * If positioned at the first item, this loops around to the last.
@@ -14,7 +42,7 @@ enum action_t: int
      * Possible errors:
      *   N/A
      */
-    case play_queue_previous_visual = 1;
+    case play_queue_previous_visual = 3;
 
     /**
      * Play the next visual in the play queue
@@ -26,7 +54,7 @@ enum action_t: int
      * Possible errors:
      *   N/A
      */
-    case play_queue_next_visual = 2;
+    case play_queue_next_visual = 4;
 
     /**
      * Set the index to be played in the play queue
@@ -44,7 +72,7 @@ enum action_t: int
      *     $string_1: error description
      *     $string_2: error description continued
      */
-    case play_queue_set_current_index = 3;
+    case play_queue_set_current_index = 5;
 
     /**
      * Get the currently playing index in the play queue
@@ -55,7 +83,7 @@ enum action_t: int
      * Possible errors:
      *   N/A
      */
-    case play_queue_get_current_index = 4;
+    case play_queue_get_current_index = 6;
 
     /**
      * Get the number of items in the play queue
@@ -66,7 +94,154 @@ enum action_t: int
      * Possible errors:
      *   N/A
      */
-    case play_queue_get_number_of_items = 5;
+    case play_queue_get_number_of_items = 7;
+
+    /**
+     * Clear all items from play queue
+     *
+     * Data fields returned on success:
+     *   N/A
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case play_queue_clear = 8;
+
+    /**
+     * Shuffle all items in the play queue
+     *
+     * Data fields returned on success:
+     *   N/A
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case play_queue_shuffle = 9;
+
+    /**
+     * Get the current base time value
+     *
+     * Request options:
+     *   N/A
+     *
+     * Data fields returned on success:
+     *   $double_1: current base time (seconds)
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case play_queue_progression_base_time_get = 10;
+
+    /**
+     * Set the current base time value
+     *
+     * Request options:
+     *    $double_1: new base time value (seconds)
+     *
+     * Data fields returned on success:
+     *   $double_1: the same value provided in the request
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case play_queue_progression_base_time_set = 11;
+
+
+    /**
+     * Add all visuals in a pack to the play queue
+     *
+     * Request options:
+     *   $string_1: pack handle ("classics" for instance)
+     *
+     * Data fields returned on success:
+     *   N/A
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case play_queue_add_pack = 30;
+
+    /**
+     * Replace contents of play queue with all visuals in a pack
+     *
+     * Request options:
+     *   $string_1: pack handle ("classics" for example)
+     *
+     * Data fields returned on success:
+     *   N/A
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case play_queue_set_to_pack = 31;
+
+    /**
+     * Add a single visual to the play queue
+     *
+     * Request options:
+     *   $string_1: pack handle ("classics" for example)
+     *   $string_2: visual handle ("starlight_aurora" for example)
+     *
+     * Data fields returned on success:
+     *   N/A
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case play_queue_add_visual = 40;
+
+    /**
+     * Replace contents of play queue with one single visual
+     *
+     * Request options:
+     *   $string_1: pack handle ("classics" for example)
+     *   $string_2: visual handle ("starlight_aurora" for example)
+     *
+     * Data fields returned on success:
+     *   N/A
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case play_queue_set_to_visual = 41;
+
+    /**
+     * Add a single visual with a specified preset to the play queue
+     *
+     * Request options:
+     *   $string_1: pack handle ("classics" for example)
+     *   $string_2: visual handle ("starlight_aurora" for example)
+     *   $string_3: preset handle ("default" for example)
+     *
+     * Data fields returned on success:
+     *   N/A
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case play_queue_add_preset = 50;
+
+    /**
+     * Replace contents of play queue with one single visual and a specific preset
+     *
+     * Request options:
+     *   $string_1: pack handle ("classics" for example)
+     *   $string_2: visual handle ("starlight_aurora" for example)
+     *   $string_3: preset handle ("default" for example)
+     *
+     * Data fields returned on success:
+     *   N/A
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case play_queue_set_to_preset = 51;
+
+    //---------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------------
+    //--- M E T A D A T A   I N F O R M A T I O N -------------------------------------------------
+    //---------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------------
 
     /**
      * Get the number of available packs
@@ -157,6 +332,16 @@ enum action_t: int
      *     $string_2: error description continued
      */
     case meta_get_visual_info = 111;
+
+
+
+
+
+    //---------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------------
+    //--- P R E S E T S ---------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------------
 
     /**
      * Request controller to load preset information from player.
