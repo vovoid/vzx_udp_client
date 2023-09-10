@@ -149,3 +149,24 @@ function play_queue_base_time_set(float $new_base_time_in_seconds) : bool
         return TRUE;
     return FALSE;
 }
+
+function play_queue_current_item_fx_level_get() : float|bool
+{
+    $request = new request();
+    $request->action = action_t::play_queue_current_item_fx_level_get;
+    $response = vzx_controller_api_call($request);
+    if ($response instanceof response)
+        return $response->double_1;
+    return FALSE;
+}
+
+function play_queue_current_item_fx_level_set(float $new_fx_level) : bool
+{
+    $request = new request();
+    $request->action = action_t::play_queue_current_item_fx_level_set;
+    $request->double_1 = $new_fx_level;
+    $response = vzx_controller_api_call($request);
+    if ($response instanceof response)
+        return TRUE;
+    return FALSE;
+}

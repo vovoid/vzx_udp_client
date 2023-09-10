@@ -146,6 +146,34 @@ enum action_t: int
      */
     case play_queue_progression_base_time_set = 11;
 
+    /**
+     * Get the current FX level value
+     * Note that this is unique for each item in the play queue. This gets the value of the currently playing item.
+     *
+     * Request options:
+     *   N/A
+     *
+     * Data fields returned on success:
+     *   $double_1: fx level (factor), default is 1.0
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case play_queue_current_item_fx_level_get = 12;
+
+    /**
+     * Set the current FX level
+     *
+     * Request options:
+     *    $double_1: new fx level (factor)
+     *
+     * Data fields returned on success:
+     *   $double_1: the same value provided in the request
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case play_queue_current_item_fx_level_set = 13;
 
     /**
      * Add all visuals in a pack to the play queue
