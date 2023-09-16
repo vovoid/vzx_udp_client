@@ -9,4 +9,4 @@ play_queue_set_to_pack("classics");
 play_queue_shuffle();
 
 // play from beginning
-play_queue_set_current_index(0);
+play_queue_progression_set_current_index(0);

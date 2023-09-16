@@ -44,6 +44,27 @@ function vzx_controller_api_call(request $request): ?response
     // receive response
     if ($enable_debug_output)
         echo "Receiving reply from server...";
+
+    // first receive 4 bytes - size of packet (uint32_t)
+    $recv_status = socket_recv($socket, $size_data, 4, 0);
+    if ($recv_status === FALSE) {
+        echo "recv call failed\n\n";
+        return null;
+    }
+
+    // size of packet - bytes 0..3
+    {
+        $unpack_action = unpack('L', $size_data, 0);
+        if (is_bool($unpack_action)) {
+            die("unpack() call failed for packet length");
+        }
+        $size_in_bytes = intval($unpack_action[1]);
+        if ($size_in_bytes != response::size_bytes)
+            die("Size in bytes of packet differs.");
+        else
+            echo "Got expected packet size...\n";
+    }
+
     $recv_status = socket_recv($socket, $reply_data, response::size_bytes, 0);
     if ($enable_debug_output)
         echo "OK\n";

@@ -15,6 +15,6 @@ echo "Number of items in play queue: ". $number_of_items_in_play_queue."\n";
 
 $visual_index_to_select = rand() % $number_of_items_in_play_queue;
 echo "Selecting visual with index: ".$visual_index_to_select."\n";
-play_queue_set_current_index($visual_index_to_select);
+play_queue_progression_set_current_index($visual_index_to_select);
 
 // you could add spin and wait for the change here if you need...
