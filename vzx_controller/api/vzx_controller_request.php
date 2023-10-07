@@ -4,6 +4,8 @@ include(dirname(__FILE__) . '/vzx_controller_request_action.php');
 
 class request
 {
+    const request_size_in_bytes = 324;
+
     // 0..3 this is an uint32_t (little endian)
     public action_t $action = action_t::unknown_command;
 

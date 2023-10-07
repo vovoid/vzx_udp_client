@@ -141,6 +141,38 @@ enum action_t: int
      */
     case play_queue_progression_random_factor_set = 31;
 
+    /**
+     * Add all items in a playlist to the play queue
+     *
+     * Note that if playlist handle does not exist, nothing will happen.
+     *
+     * Request options:
+     *    $string_1: playlist handle
+     *
+     * Data fields returned on success:
+     *   $string_1: the same value provided in the request
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case play_queue_add_playlist = 140;
+
+    /**
+     * Set the play queue to all items in a playlist
+     *
+     * Note that if playlist handle does not exist, nothing will happen.
+     *
+     * Request options:
+     *    $string_1: playlist handle
+     *
+     * Data fields returned on success:
+     *   $string_1: the same value provided in the request
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case play_queue_set_to_playlist = 141;
+
     //---------------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------------
     //--- P L A Y   Q U E U E   C U R R E N T   I T E M -------------------------------------------

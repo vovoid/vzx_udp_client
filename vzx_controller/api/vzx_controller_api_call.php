@@ -24,6 +24,21 @@ function vzx_controller_api_call(request $request): ?response
     if ($enable_debug_output)
         echo "OK\n";
 
+    $buffer = pack("L", request::request_size_in_bytes);
+
+    if ($enable_debug_output)
+        echo "buffer length: ". strlen($buffer)."\n";
+
+    $data_sent = socket_send($socket, $buffer, strlen($buffer), 0);
+    if ($data_sent != strlen($buffer))
+    {
+        echo "Could not send message size, try again later.\n";
+        return NULL;
+    }
+    if ($enable_debug_output)
+        echo "Sent ".strlen($buffer)." bytes with message length of ".request::request_size_in_bytes." bytes...\n";
+
+
     // send the request
     if ($enable_debug_output)
         echo "Serializing binary message...";
@@ -62,7 +77,8 @@ function vzx_controller_api_call(request $request): ?response
         if ($size_in_bytes != response::size_bytes)
             die("Size in bytes of packet differs.");
         else
-            echo "Got expected packet size...\n";
+            if ($enable_debug_output)
+                echo "Got expected packet size: ".$size_in_bytes."...\n";
     }
 
     $recv_status = socket_recv($socket, $reply_data, response::size_bytes, 0);

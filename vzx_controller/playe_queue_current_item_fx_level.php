@@ -12,4 +12,4 @@ $new_fx_level = $current_fx_level * 1.2;
 
 echo "Increasing fx level to: ".$new_fx_level."\n";
 
-play_queue_current_item_fx_level_set($new_fx_level);
+play_queue_current_item_fx_level_set(1.5);

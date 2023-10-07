@@ -1,5 +1,23 @@
 <?php
 
+function play_queue_progression_play(): void
+{
+    $request = new request();
+    $request->action = action_t::play_queue_progression_play;
+    $response = vzx_controller_api_call($request);
+    if (!($response instanceof response))
+        echo "progression_play failed...\n";
+}
+
+function play_queue_progression_stop(): void
+{
+    $request = new request();
+    $request->action = action_t::play_queue_progression_stop;
+    $response = vzx_controller_api_call($request);
+    if (!($response instanceof response))
+        echo "progression_play failed...\n";
+}
+
 function play_queue_progression_select_previous_visual(): void
 {
     $request = new request();

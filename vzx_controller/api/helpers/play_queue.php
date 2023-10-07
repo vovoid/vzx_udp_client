@@ -89,4 +89,22 @@ function play_queue_add_preset(string $pack_handle, string $visual_handle, strin
     return $response instanceof response;
 }
 
+function play_queue_add_playlist(string $playlist_handle): bool
+{
+    $request = new request();
+    $request->string_1 = $playlist_handle;
+    $request->action = action_t::play_queue_add_playlist;
+    $response = vzx_controller_api_call($request);
+    return $response instanceof response;
+}
+
+function play_queue_set_to_playlist(string $playlist_handle): bool
+{
+    $request = new request();
+    $request->string_1 = $playlist_handle;
+    $request->action = action_t::play_queue_set_to_playlist;
+    $response = vzx_controller_api_call($request);
+    return $response instanceof response;
+}
+
 
