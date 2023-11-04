@@ -1,0 +1,12 @@
+meta_set fHx8fHw=
+component_create maths;converters;3float_to_float3 3float_to_3 -0.159751 0.000138
+pseq_p inject 3float_to_3 floata 3.006428;1;MC4wMDAwMDE=|0.993572;1;MC41MDYxMzM=|0.006428;1;MC4w
+component_create renderers;basic;colored_rectangle colored_rectangle_1 -0.063423 0.000632
+param_set colored_rectangle_1 size 0.42231392860412597656,0.10697699338197708130,0.00000000000000000000
+component_create maths;integration;float_smoother float_smoother_1 -0.237365 -0.012126
+cpp screen0 0.000000 0.000000
+break
+break
+param_connect screen0 screen colored_rectangle_1 render_out
+param_connect colored_rectangle_1 position 3float_to_3 result_float3
+param_connect 3float_to_3 floatb float_smoother_1 result_float

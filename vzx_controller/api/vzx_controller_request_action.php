@@ -524,5 +524,35 @@ enum action_t: int
      */
     case preset_get_preset_handle_by_visual_and_index = 1022;
 
+    /**
+     * Send a command to a VZX engine (usually the engine of the currently playing visual)
+     * To learn more about what commands are available, check the console in Artiste.
+     * Each row in a state file is also a valid engine command.
+     * The most common command though is:
+     *   param_set_interpolate [module_name] [parameter_name] [value (double)] [adjustment speed factor (double)]
+     *
+     * Example:
+     *  param_set_interpolate float_smoother_1 value_in 0.0 10.0
+     *
+     * The 4 strings will be concatenated to accommodate longer commands.
+     *
+     * All values are echoed back the same as they were sent in.
+     * If the command does not work, test it in Artiste first. There is no error returns.
+     *
+     * Request options:
+     *   $integer_1: engine index (reserved for future use, should be 0 now)
+     *   $string_1: engine command part 1
+     *   $string_2: engine command part 2
+     *   $string_3: engine command part 3
+     *   $string_4: engine command part 4
+     *
+     * Data fields returned on success:
+     *   N/A
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case engine_execute_command = 2000;
+
 }
 
