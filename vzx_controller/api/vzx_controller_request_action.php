@@ -554,5 +554,111 @@ enum action_t: int
      */
     case engine_execute_command = 2000;
 
+    /**
+     * Get the number of palettes defined in the player
+     *
+     * Request options:
+     *   N/A
+     *
+     * Data fields returned on success:
+     *   $integer_1: the number of palettes 0..n
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case palette_get_number_of_palettes = 3000;
+
+    /**
+     * Get information about a single palette
+     *
+     * Request options:
+     *   $integer_1: palette index (0..total_count-1)
+     *
+     * Data fields returned on success:
+     *   $integer_1: the number of colors defined for the palette
+     *   $string_1: the palette's handle
+     *   $string_2: the palette's name
+     *
+     * Possible errors:
+     *   error_index_out_of_bounds:
+     *     (The requested index out of bounds)
+     *     $integer_1: the number of items in the play queue
+     *     $string_1: error description
+     *     $string_2: error description continued
+     */
+    case palette_get_palette_info = 3001;
+
+    /**
+     * Select the current palette
+     *
+     * Note that no error message will be sent back.
+     * If you supply an invalid handle, check the player logs.
+     * (You should have enumerated the available handles already at this stage anyway...)
+     *
+     * Request options:
+     *   $string_1: a valid palette handle or empty string if no palette is to be used
+     *
+     * Data fields returned on success:
+     *   $string_1: same as was sent in
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case palette_current_palette_set = 3002;
+
+    /**
+     * Get information about a single color of a single palette
+     *
+     * Note that VZX Palette colors are only dealt with in HSV format.
+     * If you need other formats you have to convert to / from those yourself.
+     *
+     * You might think Alpha could be stored in the 4th component, but palette colors
+     * do not store alpha.
+     *
+     * Request options:
+     *   $string_1: a valid palette handle
+     *   $integer_1: an index from 0..number_of_colors-1
+     *
+     * Data fields returned on success:
+     *   $string_1: color handle
+     *   $string_2: color name
+     *   $double_1: color H value
+     *   $double_2: color S value
+     *   $double_3: color V value
+     *
+     * Possible errors:
+     *
+     *   error_item_not_found:
+     *     (The palette handle can not be found)
+     *     $string_1: error description
+     *
+     *   error_index_out_of_bounds:
+     *     (The requested color index is out of bounds)
+     *     $integer_1: the number of colors
+     *     $string_1: error description
+     *     $string_2: error description continued
+     */
+    case palette_get_color_info = 3003;
+
+    /**
+     * Set color for a specific palette
+     *
+     * Note that this is not saved on the player side, you'd have to save the state
+     * to do so.
+     *
+     * Request options:
+     *   $string_1: palette handle
+     *   $string_2: color handle
+     *   $double_1: color H value
+     *   $double_2: color S value
+     *   $double_3: color V value
+     *
+     * Data fields returned on success:
+     *   N/A
+     *
+     * Possible errors:
+     *   N/A
+     */
+    case palette_set_color = 3004;
 }
 

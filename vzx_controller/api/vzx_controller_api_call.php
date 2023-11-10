@@ -6,23 +6,28 @@ include(dirname(__FILE__) . '/vzx_controller_response.php');
 
 global $enable_debug_output;
 $enable_debug_output = FALSE;
+global $socket;
+$socket = NULL;
 
 function vzx_controller_api_call(request $request): ?response
 {
     global $remote_ip;
     global $port;
     global $enable_debug_output;
+    global $socket;
 
-    // connect socket to server
-    $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-    if ($enable_debug_output)
-        echo "Connecting to server...";
-    if (!socket_connect($socket, $remote_ip, $port)) {
-        echo "Could not connect to server: " . $remote_ip . ":" . $port . "\n";
-        return null;
+    // connect socket to server first time an api call is made (connection will then stay open)
+    if ($socket === NULL) {
+        $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        //if ($enable_debug_output)
+            echo "Connecting to server...";
+        if (!socket_connect($socket, $remote_ip, $port)) {
+            echo "Could not connect to server: " . $remote_ip . ":" . $port . "\n";
+            return null;
+        }
+        if ($enable_debug_output)
+            echo "OK\n";
     }
-    if ($enable_debug_output)
-        echo "OK\n";
 
     $buffer = pack("L", request::request_size_in_bytes);
 
@@ -90,9 +95,11 @@ function vzx_controller_api_call(request $request): ?response
     }
 
     // close socket
-    if ($enable_debug_output)
-        echo "Closing socket...";
-    socket_close($socket);
+    // use this snippet if you need to close the socket
+    // otherwise it will be closed by PHP when the script exits
+    //if ($enable_debug_output)
+    //    echo "Closing socket...";
+    //socket_close($socket);
 
     if ($enable_debug_output)
         echo "OK\n";
